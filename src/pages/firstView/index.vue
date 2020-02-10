@@ -14,7 +14,7 @@
         <img src="/static/imgs/firstView/nvsheng.jpg" alt="">
       </swiper-item>
     </swiper>
-    <button class="btn" v-show="index === 3">开始体验</button>
+    <button @click="toBooks" class="btn" v-show="index === 3">开始体验</button>
   </div>
 </template>
 
@@ -30,6 +30,11 @@
         console.log(event); // event是Vue的事件对象
         // 更新swiper的current下标
         this.index = event.mp.detail.current
+      },
+      toBooks(){
+        wx.switchTab({
+          url: '/pages/books/main'
+        })
       }
     }
   }
