@@ -1,3 +1,8 @@
+<template>
+  <div>
+      firstView组件
+  </div>
+</template>
 
 <script>
   export default {}

@@ -44,12 +44,12 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
+    // generate dist firstView.html with correct asset hash for caching.
+    // you can customize output by editing /firstView.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     // new HtmlWebpackPlugin({
-    //   filename: config.build.index,
-    //   template: 'index.html',
+    //   filename: config.build.firstView,
+    //   template: 'firstView.html',
     //   inject: true,
     //   minify: {
     //     removeComments: true,
