@@ -2,7 +2,8 @@
 
 let Koa = require('koa')
 let KoaRouter = require('koa-router')
-
+let Fly = require("flyio/src/node")
+let fly=new Fly;
 
 // 1. 生成应用
 const app = new Koa();
@@ -51,6 +52,34 @@ router.get('/searchBooks', (ctx, next) => {
 })
 
 
+// 2. 获取用户唯一标识openId的接口
+router.get('/getOpenId', async (ctx, next) => {
+  // 1. 获取code参数
+  let code = ctx.query.code
+  // 2. 准备其他数据
+  let appId = 'wx810e8b1fde386fde'
+  let appSecret = '261522617b262c09fe66a8f7e0cc4680'
+  
+  let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appId}&secret=${appSecret}&js_code=${code}&grant_type=authorization_code`
+  // 发送请求给腾讯的服务器: flyio
+  
+  
+  
+  let result = await fly.get(url)
+  console.log(result.data);
+    // .then(function (response) {
+    //   console.log(response.data);
+    //   result = response.data;
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+  
+  
+  ctx.body = result.data;
+  
+  
+});
 
 
 

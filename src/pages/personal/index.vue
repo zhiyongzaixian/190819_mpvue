@@ -15,6 +15,7 @@
       }
     },
     mounted(){
+
       // 获取用户信息
       wx.getUserInfo({
         success: (msg) => {
