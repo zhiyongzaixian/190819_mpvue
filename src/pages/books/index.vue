@@ -1,23 +1,15 @@
 <template>
   <div id="booksContainer">
     <swiper indicator-dots indicator-color="green" indicator-active-color="pink">
-      <swiper-item>
-        <img src="/static/imgs/firstView/1.jpg" alt="">
-      </swiper-item>
-      <swiper-item>
-        <img src="/static/imgs/firstView/2.jpg" alt="">
-      </swiper-item>
-      <swiper-item>
-        <img src="/static/imgs/firstView/3.jpg" alt="">
-      </swiper-item>
-      <swiper-item>
-        <img src="/static/imgs/firstView/nvsheng.jpg" alt="">
+      <!--<swiper-item v-for="(item, index) in booksList.splice(0, 4)" :key="index">-->
+      <swiper-item v-for="(item, index) in newBooksList" :key="index">
+        <img :src="item.image" alt="">
       </swiper-item>
     </swiper>
     <div class="listContainer">
       <div class="nav">
         <span>全部商品</span>
-        <span class="more"> > </span>
+        <span @click="toBooksList" class="more"> > </span>
       </div>
       <ul class="list">
         <li class="listItem" v-for="(bookItem, index) in booksList" :key="index">
@@ -40,6 +32,22 @@
     },
     mounted(){
       this.booksList = booksList
+    },
+    computed: {
+      newBooksList(){
+        console.log(...this.booksList);
+        // return [...this.booksList].splice(0, 4)
+        return JSON.parse(JSON.stringify(this.booksList)).splice(0, 4)
+      }
+    },
+    methods: {
+      toBooksList(){
+        // 跳转至booksList
+        wx.navigateTo({
+          // url: '/pages/booksList/main?booksList=' + this.booksList
+          url: `/pages/booksList/main?booksList=${JSON.stringify(this.booksList)}`
+        })
+      }
     }
   }
 </script>
