@@ -4,14 +4,23 @@
       <input @confirm="handleConfirm" v-model="searchContent" placeholder-class="placeholder"	  type="text" placeholder="书中自有黄金屋">
       <span class="clear" @click="handleClear" v-show="searchContent">X</span>
     </div>
+    <div v-if="booksList.length">
+      <BooksList :booksList="booksList"/>
+    </div>
   </div>
 </template>
 
 <script>
+  import request from '../../utils/request'
+  import BooksList from '../booksList/index'
   export default {
+    components: {
+      BooksList
+    },
     data(){
       return {
-        searchContent: ''
+        searchContent: '',
+        booksList: []
       }
     },
     methods: {
@@ -19,7 +28,7 @@
         console.log('clear');
         this.searchContent = ''
       },
-      handleConfirm(){
+      async handleConfirm(){
         // console.log('用户点击了确认按钮');
         // 1. 收集表单相用户输入数据
         // this.searchContent
@@ -27,16 +36,9 @@
           req: this.searchContent
         }
         // 2. 发送请求获取对应的数据: wx.request
-        wx.request({
-          url: 'http://localhost:3000/searchBooks',
-          data,
-          success: (response) => {
-            console.log(response);
-          },
-          fail: (error) => {
-            console.log(error);
-          }
-        })
+        let result = await request('http://localhost:3000/searchBooks', data)
+        console.log('result: ', result);
+        this.booksList = result.data
       }
     }
   }

@@ -14,6 +14,7 @@
 
 <script>
   export default {
+    props: ['booksList'],
     data(){
       return {
         booksList: []
@@ -26,8 +27,11 @@
     },
     mounted(){
       //console.log('mounted()');
-      //console.log(this); // this是当前Vue组件的实例
-      this.booksList = JSON.parse(this.$mp.query.booksList)
+      console.log(this); // this是当前Vue组件的实例
+      // 只有路由跳转的时候才有$mp
+      if(this.$mp){
+        this.booksList = JSON.parse(this.$mp.query.booksList)
+      }
     }
   }
 </script>
