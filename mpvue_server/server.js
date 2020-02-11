@@ -27,6 +27,46 @@ router.get('/', (ctx, next) => {
   ctx.body = '服务器测试返回的数据'
 });
 
+
+
+// 1. 搜索图书的接口
+let datas = require('./datas/data.json');
+router.get('/searchBooks', (ctx, next) => {
+  // 1. 获取请求的参数
+  let req = ctx.query.req
+  // 2. 处理请求数据
+  if(!req){ // 没有参数携带
+    ctx.body = {
+      code: 1,
+      data: '请输入有效的参数'
+    }
+  }else {
+    // 3. 返回相应数据
+    ctx.body = {
+      code: 0,
+      data: datas
+    }
+  }
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 3. 安装路由器，声明使用中间键
 app
   .use(router.routes()) // 声明使用路由
