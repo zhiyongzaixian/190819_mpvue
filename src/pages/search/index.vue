@@ -36,7 +36,7 @@
           req: this.searchContent
         }
         // 2. 发送请求获取对应的数据: wx.request
-        let result = await request('http://localhost:3000/searchBooks', data)
+        let result = await request('/searchBooks', data)
         console.log('result: ', result);
         this.booksList = result.data
       }
