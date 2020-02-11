@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/search/main",
     "pages/books/main",
     "pages/booksList/main",
     "pages/firstView/main",
-    "pages/search/main",
     "pages/personal/main"
   ],
   "tabBar": {
