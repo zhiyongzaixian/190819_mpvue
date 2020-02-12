@@ -4,6 +4,7 @@
       <img :src="userInfo.avatarUrl?userInfo.avatarUrl:'/static/imgs/personal/personal.png'" alt="">
       <button @getuserinfo="handleGetUserInfo" open-type="getUserInfo">{{userInfo.nickName?userInfo.nickName:'登录'}}</button>
     </div>
+    <button @click="handleScan">扫码看书</button>
   </div>
 </template>
 
@@ -32,6 +33,13 @@
         if(msg.mp.detail.userInfo){
           this.userInfo = msg.mp.detail.userInfo
         }
+      },
+      handleScan(){
+        wx.scanCode({
+          success: (msg) => {
+            console.log(msg.result);
+          }
+        })
       }
     }
   }
