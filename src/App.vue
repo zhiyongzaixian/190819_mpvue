@@ -12,6 +12,8 @@
           // 发请求携带code
           let result = await request('/getOpenId', {code})
           console.log(result);
+          // 将获取到的用户加密标识信息存入storage中
+          wx.setStorageSync('token', result)
         }
       })
     }

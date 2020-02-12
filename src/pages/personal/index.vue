@@ -19,7 +19,6 @@
       // 获取用户信息
       wx.getUserInfo({
         success: (msg) => {
-          console.log(msg);
           this.userInfo = msg.userInfo
         },
         fail: () => {

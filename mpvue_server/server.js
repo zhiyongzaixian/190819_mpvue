@@ -2,6 +2,8 @@
 
 let Koa = require('koa')
 let KoaRouter = require('koa-router')
+let jwt = require('jsonwebtoken')
+
 let Fly = require("flyio/src/node")
 let fly=new Fly;
 
@@ -66,7 +68,11 @@ router.get('/getOpenId', async (ctx, next) => {
   
   
   let result = await fly.get(url)
-  console.log(result.data);
+  console.log(result.data); // string
+  
+  
+  
+  //fly.get(url)
     // .then(function (response) {
     //   console.log(response.data);
     //   result = response.data;
@@ -74,9 +80,26 @@ router.get('/getOpenId', async (ctx, next) => {
     // .catch(function (error) {
     //   console.log(error);
     // });
+  let openId = JSON.parse(result.data).openid
+  let userInfo = {}
+  userInfo[openId] = {
+    money: 10000000000000000000
+  }
+  
+  // 微信服务器底层对用户信息加密的结果 {avatarUrl, nickName, gender}
+  // {session_key: "u0K/5AZsDpatarknqm5hyw==", openid: "oWYEK4ySgEw5F5WqzdjfXqqe_MNo"}
+  // 对当前用户信息加密
+  let sessionKey = 'atguigu'
+  let token = jwt.sign(openId, sessionKey);
+  console.log('加密后的token字段: ', token)
   
   
-  ctx.body = result.data;
+  
+  // 测试， 解密
+  var decoded = jwt.verify(token, sessionKey);
+  console.log('解密后的内容： ', decoded);
+  
+  ctx.body = token;
   
   
 });
